@@ -142,6 +142,8 @@ else ifeq ($(IDF_TARGET_ARCH),riscv)
 CFLAGS += -march=rv32imc
 endif
 
+CXXFLAGS += $(filter-out -std=gnu11 -Wstrict-prototypes -Werror-implicit-function-declaration -Wnested-externs -Werror=missing-prototypes,$(CFLAGS))
+
 LDFLAGS = $(CFLAGS) -Wl,-nostdlib -Wl,-Map=$@.map -Wl,-cref -Wl,--undefined=uxTopUsedPriority
 
 LDFLAGS += \
@@ -223,6 +225,18 @@ SRC_C += \
 	peripherals/timer.c \
 	peripherals/$(IDF_TARGET)/pins.c
 
+SRC_C += \
+	$(wildcard rbcx/binding/*.c) \
+	$(wildcard rbcx/module/*.c) \
+	$(wildcard rbcx/module/comm/src/*.c) \
+	$(wildcard rbcx/module/comm/src/nanopb/*.c) \
+	$(wildcard rbcx/module/comm/src/cobs/*.c)
+
+SRC_CXX += \
+	$(wildcard rbcx/binding/*.cpp) \
+	$(wildcard rbcx/module/*.cpp) \
+	$(wildcard rbcx/module/comm/src/*.cpp)
+
 ifneq ($(IDF_TARGET),esp32c3)
 SRC_C += \
 	peripherals/pcnt.c \
@@ -283,7 +297,7 @@ FROZEN_MPY_PY_FILES := $(shell find -L $(FROZEN_MPY_DIR) -type f -name '*.py')
 FROZEN_MPY_MPY_FILES := $(addprefix $(BUILD)/,$(FROZEN_MPY_PY_FILES:.py=.mpy))
 endif
 
-OBJ += $(PY_O) $(SUPERVISOR_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
+OBJ += $(PY_O) $(SUPERVISOR_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o)) $(addprefix $(BUILD)/, $(SRC_CXX:.cpp=.o))
 OBJ += $(addprefix $(BUILD)/, $(SRC_COMMON_HAL_EXPANDED:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(SRC_SHARED_MODULE_EXPANDED:.c=.o))
 ifeq ($(INTERNAL_LIBM),1)

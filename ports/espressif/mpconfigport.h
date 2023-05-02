@@ -101,4 +101,7 @@
 #define CIRCUITPY_PORT_NUM_SUPERVISOR_ALLOCATIONS (1)
 #endif
 
+// Needed for asyncio ThreadSafeFlag -> RBCX
+#define MICROPY_PY_IO_IOBASE (1)
+
 #endif  // MICROPY_INCLUDED_ESPRESSIF_MPCONFIGPORT_H

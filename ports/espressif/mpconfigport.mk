@@ -102,3 +102,7 @@ endif
 # only if something else is turned off, such as HID.
 USB_NUM_ENDPOINT_PAIRS = 7
 USB_NUM_IN_ENDPOINTS = 5
+
+
+CIRCUITPY_RBCX ?= 1
+FROZEN_MPY_DIRS += $(TOP)/ports/espressif/rbcx/python

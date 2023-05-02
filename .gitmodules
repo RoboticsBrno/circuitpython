@@ -328,3 +328,9 @@
 [submodule "frozen/Adafruit_CircuitPython_SSD1680"]
 	path = frozen/Adafruit_CircuitPython_SSD1680
 	url = https://github.com/adafruit/Adafruit_CircuitPython_SSD1680
+[submodule "shared-module/rbcx/comm"]
+	path = shared-module/rbcx/comm
+	url = https://github.com/RoboticsBrno/RB3204-RBCX-coproc-comm
+[submodule "ports/espressif/rbcx/module/comm"]
+	path = ports/espressif/rbcx/module/comm
+	url = https://github.com/RoboticsBrno/RB3204-RBCX-coproc-comm.git
